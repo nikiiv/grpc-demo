@@ -1,0 +1,11 @@
+micronaut:
+  application:
+    name: grpc-demo-bff
+  server:
+    port: 8080
+
+# Upstream Akka gRPC server (run :grpc-server:run separately)
+grpc:
+  client:
+    host: 127.0.0.1
+    port: 9090

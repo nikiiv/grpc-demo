@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package pingpong;
+
+option java_multiple_files = true;
+option java_package = "com.example.grpcdemo.grpc";
+option java_outer_classname = "PingPongProto";
+
+// Ping increments the server counter; Peek returns the current value without incrementing.
+service PingPongService {
+  rpc Ping (PingRequest) returns (PongResponse);
+  rpc Peek (PeekRequest) returns (PongResponse);
+}
+
+message PingRequest {}
+
+message PeekRequest {}
+
+message PongResponse {
+  int64 counter = 1;
+}

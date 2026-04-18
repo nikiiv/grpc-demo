@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package job;
+
+option java_multiple_files = true;
+option java_package = "com.example.grpcdemo.job";
+option java_outer_classname = "JobProto";
+
+// Named background jobs: one master + one worker actor per job on the grpc-server.
+service JobService {
+  rpc StartJob (StartJobRequest) returns (StartJobResponse);
+  rpc ListJobs (ListJobsRequest) returns (ListJobsResponse);
+  rpc PeekJob (PeekJobRequest) returns (PeekJobResponse);
+  rpc TerminateJob (TerminateJobRequest) returns (TerminateJobResponse);
+  rpc CleanJob (CleanJobRequest) returns (CleanJobResponse);
+}
+
+message ListJobsRequest {}
+
+message StartJobRequest {
+  string name = 1;
+  int64 count = 2;
+}
+
+message StartJobResponse {
+  bool ok = 1;
+  string error_message = 2;
+}
+
+enum JobStatus {
+  JOB_STATUS_UNKNOWN = 0;
+  JOB_STATUS_RUNNING = 1;
+  JOB_STATUS_DONE = 2;
+  JOB_STATUS_TERMINATED = 3;
+}
+
+message JobStatusInfo {
+  string name = 1;
+  JobStatus status = 2;
+  int64 target_count = 3;
+  int64 current_count = 4;
+}
+
+message ListJobsResponse {
+  repeated JobStatusInfo jobs = 1;
+}
+
+message PeekJobRequest {
+  string name = 1;
+}
+
+message PeekJobResponse {
+  bool ok = 1;
+  string error_message = 2;
+  JobStatusInfo info = 3;
+}
+
+message TerminateJobRequest {
+  string name = 1;
+}
+
+message TerminateJobResponse {
+  bool ok = 1;
+  string error_message = 2;
+}
+
+message CleanJobRequest {
+  string name = 1;
+}
+
+message CleanJobResponse {
+  bool ok = 1;
+  string error_message = 2;
+}
