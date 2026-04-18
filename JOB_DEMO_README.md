@@ -67,6 +67,6 @@ Logging uses **SLF4J** across the BFF, gRPC entrypoints, and these actors (see c
 
 1. Start **`grpc-server`**: `./gradlew :grpc-server:run`
 2. Start **`bff`**: `./gradlew :bff:run`
-3. Start the **web client** (optional): `cd web-client && npm run dev` — open the printed URL; `/api` is proxied to the BFF.
+3. Start the **web client** (optional): `./gradlew start_bff_client` — open the printed URL; `/api` is proxied to the BFF.
 
 See **`PROJECT.md`** for ports, config files, and the rest of the repo layout.

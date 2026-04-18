@@ -1,3 +1,3 @@
 rootProject.name = "grpc-demo"
 
-include("proto", "grpc-server", "bff", "cli-client")
+include("proto", "grpc-server", "bff", "cli-client", "web-client")

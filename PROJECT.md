@@ -83,32 +83,31 @@ Requires **`grpc-server`** to be running. Optional JVM overrides:
 
 ### `web-client`
 
-**Vite + TypeScript** SPA (not a Gradle subproject). It calls the **BFF** over HTTP; **no protobuf in the browser**.
+**Vite + TypeScript** SPA. It is a **Gradle subproject** (`web-client/build.gradle.kts`) so the same `./gradlew` workflow can install deps and run/build the UI; **npm** remains the real toolchain. The app calls the **BFF** over HTTP; **no protobuf in the browser**.
 
 **Run** (third terminal; needs **`bff`** and **`grpc-server`** for full behavior)
 
 ```bash
-cd web-client
-npm install    # first time only
-npm run dev
+./gradlew start_bff_client
+# same as: ./gradlew :web-client:start_bff_client  (runs npm install when needed, then Vite)
 ```
 
-Open **http://localhost:5173** (or the URL Vite prints). The dev server proxies **`/api`** to **http://127.0.0.1:8080** (see `web-client/vite.config.ts`), so the Micronaut BFF must be up.
+Open **http://127.0.0.1:5173** (or the URL Vite prints). The dev server proxies **`/api`** to **http://127.0.0.1:8080** (see `web-client/vite.config.ts`), so the Micronaut BFF must be up.
 
 Stop with **Ctrl+C**.
 
-**Production build** (static files under `web-client/dist/`):
+**Production build** (static files under `web-client/dist/`) — also runs as part of **`./gradlew build`**:
 
 ```bash
-cd web-client
-npm run build
+./gradlew :web-client:build
+# or: cd web-client && npm run build
 ```
 
 ---
 
 ## Typical demo order
 
-1. `./gradlew :grpc-server:run`
-2. `./gradlew :bff:run`
-3. `cd web-client && npm run dev` → browser at **http://localhost:5173**
+1. `./gradlew start_grpc_server` (or `./gradlew :grpc-server:run`)
+2. `./gradlew start_bff_server` (or `./gradlew :bff:run`)
+3. `./gradlew start_bff_client` → browser at **http://127.0.0.1:5173** when supported
 4. Optional: `./gradlew :cli-client:run` or `./gradlew :cli-client:run --args=peek`
