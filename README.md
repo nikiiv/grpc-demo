@@ -1,6 +1,6 @@
 # grpc-demo
 
-Small end-to-end sample: **Akka** actors and **Akka gRPC** in a standalone JVM, **Micronaut** as a REST BFF, **TypeScript** web UI, and shared **Protocol Buffers** in `proto/schemas/`. The browser talks HTTP only; the BFF calls the backend over gRPC.
+Small end-to-end sample:**gRPC** in a standalone JVM, **Micronaut** as a REST BFF, **TypeScript** web UI, and shared **Protocol Buffers** in `proto/schemas/`. The browser talks HTTP only; the BFF calls the backend over gRPC.
 
 ## Requirements
 
